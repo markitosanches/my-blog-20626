@@ -15,7 +15,7 @@
                 </div>
                 <ul>
                     @forelse($posts as $post)
-                        <li><a href="blog/{{ $post->id }}">{{ ucfirst($post->title)}}</a></li>
+                        <li><a href="{{ route('blog.show', $post->id) }}">{{ ucfirst($post->title)}}</a></li>
                     @empty
                         <li>Aucun article</li>
                     @endforelse

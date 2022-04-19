@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogPostController extends Controller
 {
@@ -93,5 +94,62 @@ class BlogPostController extends Controller
     {
         $blogPost->delete();
         return redirect(route('blog'));
+    }
+
+    public function queries(){
+       //Select * from table
+       //$blog = BlogPost::all();
+
+       // select title from table;
+        // $blog = BlogPost::select('title')
+        // ->get();
+
+     // select * from table WHERE  = ?;
+        // $blog = BlogPost::select()
+        // ->WHERE('user_id', '=',  3)
+        // ->get();
+
+
+     // select * from table WHERE  = ? AND = ?;
+        // $blog = BlogPost::select()
+        // ->where('user_id', '=',  3)
+        // ->where('id', '=', 4)
+        // ->get();
+
+    //  select * from table WHERE  = ? OR = ?;
+        // $blog = BlogPost::select()  
+        // ->where('user_id', '=', 3)
+        // ->orWhere('user_id', '=' ,4)
+        // ->get();
+
+    //  select * from table ORDER BY column;
+    //     $blog = BlogPost::select('title')  
+    //     ->orderBy('title', 'DESC')
+    //     ->get();
+
+    //  select * from table INNER JOIN table On pk = fk;
+        // $blog = BlogPost::select('title', 'name')
+        // ->join('users', 'blog_posts.user_id', '=', 'users.id')
+        // ->orderby('name')
+        // ->get();    
+
+    //  select * from table LEFT OUTER JOIN table On pk = fk;
+        // $blog = BlogPost::select('title', 'name')
+        // ->rightJoin('users', 'blog_posts.user_id', '=', 'users.id')
+        // ->orderby('name')
+        // ->get(); 
+
+    //  Select COUNT(*) FROM Table; // count / sum / max / min / avg
+        //$blog = BlogPost::count('id');
+
+        //$blog = BlogPost::where('user_id', '=', 3)->count('id');
+
+// DB Requette brute
+
+        $blog = BlogPost::select(DB::raw('count(*) as countblog, user_id'))
+        ->groupby('user_id')
+        ->get();
+
+       return $blog;
     }
 }

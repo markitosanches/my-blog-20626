@@ -7,6 +7,8 @@
                 <h1 class="display-one">{{ ucfirst($post->title) }}</h1>
                 {!! $post->body !!}
                 <hr>
+                <strong>Author :</strong> {{$post->blogHasUser->name}}
+                <hr>
                 <a href="{{ route('blog.edit', $post->id)}}" class="btn btn-outline-primary">Modifier l'article</a>
                 <hr>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">

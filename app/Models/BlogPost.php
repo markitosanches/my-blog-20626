@@ -14,4 +14,11 @@ class BlogPost extends Model
         'body',
         'user_id'
     ];
+
+    //select * from blogPost inner join user on user_id = id;    
+    public function blogHasUser() {
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+
 }

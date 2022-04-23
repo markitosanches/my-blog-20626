@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -146,10 +147,15 @@ class BlogPostController extends Controller
 
 // DB Requette brute
 
-        $blog = BlogPost::select(DB::raw('count(*) as countblog, user_id'))
-        ->groupby('user_id')
-        ->get();
+        // $blog = BlogPost::select(DB::raw('count(*) as countblog, user_id'))
+        // ->groupby('user_id')
+        // ->get();
 
-       return $blog;
+        //select * from table wehre id = ?
+        $blog = BlogPost::find(1);
+        $user = User::all();
+
+
+       return view('blog.blog-query', ['blog'=> $blog, 'users' => $user]);
     }
 }

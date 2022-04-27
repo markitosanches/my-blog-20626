@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Hash;
+use Auth;
 
 class CustomAuthController extends Controller
 {
@@ -36,12 +37,18 @@ class CustomAuthController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|min:2|max:191',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|max:20'
+        ]);
+
         $user = new User;
         $user->fill($request->all());
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect(route('custom.login'));
+        return redirect(route('login'));
     }
 
     /**
@@ -87,5 +94,38 @@ class CustomAuthController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function customLogin(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if(!Auth::validate($credentials)):
+            return redirect(route('login'))
+                ->withErrors(trans('auth.failed'));
+        endif;        
+
+        // select count(*) from user where username = ?
+        // 0 errors  (== 1  bon) >1 errors
+        // mot de passe = hash.saisit == mot passe enregistre
+        // SESSION 
+
+        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        Auth::login($user, $request->get('remember'));
+
+        return redirect()->intended('dashboard')->withSuccess('Sign in');
+    }
+
+    public function dashboard(){
+        $name = "not connected";
+        if(Auth::check()){
+            $name = Auth::user()->name;
+        }
+        return view('blog.dashboard', ['name' => $name]);
     }
 }

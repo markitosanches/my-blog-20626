@@ -28,6 +28,9 @@ Route::put('blog/{blogPost}/edit', [BlogPostController::class, 'update']);
 Route::delete('blog/{blogPost}', [BlogPostController::class, 'destroy']);
 Route::get('blog-queries', [BlogPostController::class, 'queries']);
 
-Route::get('login', [CustomAuthController::class, 'index'])->name('custom.login');
+Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('custom.login');
 Route::get('registration', [CustomAuthController::class, 'create']);
 Route::post('custom-registration', [CustomAuthController::class, 'store'])->name('custom.registration');
+
+Route::get('dashboard', [CustomAuthController::class, 'dashboard']);

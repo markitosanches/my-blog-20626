@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Hash;
 use Auth;
+use Session;
 
 class CustomAuthController extends Controller
 {
@@ -48,7 +49,7 @@ class CustomAuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect(route('login'));
+        return redirect(route('login'))->withSuccess('Felicitation !');
     }
 
     /**
@@ -118,11 +119,17 @@ class CustomAuthController extends Controller
 
         Auth::login($user, $request->get('remember'));
 
-        return redirect()->intended('dashboard')->withSuccess('Sign in');
+        return redirect()->intended('dashboard');
+    }
+
+    public function logout(){
+        Session::flush();
+        Auth::logout();
+        return Redirect(route('login'));
     }
 
     public function dashboard(){
-        $name = "not connected";
+        $name = "Guest";
         if(Auth::check()){
             $name = Auth::user()->name;
         }

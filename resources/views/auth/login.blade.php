@@ -7,6 +7,12 @@
                     <div class="card">
                         <h3 class="card-header text-center">Login</h3>
                         <div class="card-body">
+                        @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                                 {{session('success')}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div> 
+                        @endif
                         @foreach($errors->all() as $error)
                             <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
                                 {{ $error }}
@@ -16,7 +22,7 @@
                             <form action="{{ route('custom.login')}}" method="post">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <input type="email" placeholder="Email" class="form-control" name="email" >
+                                    <input type="email" placeholder="Email" class="form-control" name="email" value="{{old('email')}}">
                                 </div>
                                 <div class="form-group mb-3">
                                     <input type="password" placeholder="Mot de passe" class="form-control" name="password">

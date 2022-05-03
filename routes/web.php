@@ -38,7 +38,7 @@ Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout')->m
 Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
 
 
-
-Route::get('/lang/{locale}', [LocalizationController::class, 'index']);
+Route::get('/lang/{locale}', [LocalizationController::class, 'index'])->name('lang');
 
 //https://github.com/Laravel-Lang/lang/blob/main/locales/fr/auth.php
+//https://www.countryflags.com/icons-overview/

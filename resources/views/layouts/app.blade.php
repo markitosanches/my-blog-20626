@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+    @php $locale = session()->get('locale'); @endphp
 <nav class="navbar navbar-light navbar-expand-lg mb-5">
         <div class="container">          
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="toggle navigation">
@@ -22,6 +23,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link @if($locale=='en')bg-secondary text-light @endif" href="{{route('lang', 'en')}}"><img src="{{ asset('img/flag/en.png')}}" alt="English"> English</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if($locale=='fr') bg-secondary text-light @endif" href="{{route('lang', 'fr')}}"><img src="{{ asset('img/flag/fr.png')}}" alt="Français"> Français</a>
+                    </li>
                     @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login')}}">Login</a>

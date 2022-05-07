@@ -23,6 +23,14 @@
                                 <textarea id="body" class="form-control" name="body" placeholder="Entrer le corps du message"
                                           rows="" required></textarea>
                             </div>
+                            <div class="control-group col-12 mt-2">
+                                <label for="categorie">Categorie</label>
+                                <select id="categorie" class="form-control" name="categorieId" required>
+                                    @foreach($categories as $categorie)
+                                        <option value="{{$categorie->id}}">{{$categorie->categorie}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="row mt-2">
                             <div class="control-group col-12 text-center">

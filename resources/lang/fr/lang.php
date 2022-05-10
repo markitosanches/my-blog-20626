@@ -10,4 +10,8 @@ return [
     //blade login
     'text_login'        => 'Connexion',
     'text_connection'   => 'Connecter',
+
+    //create blog
+    'text_create_message'   => 'Créer un nouveau message',
+    
 ];

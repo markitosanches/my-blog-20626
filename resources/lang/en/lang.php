@@ -12,4 +12,8 @@ return [
     'text_login'        => 'Login',
     'text_connection'   => 'Connection',
 
+    //create blog
+    'text_create_message'   => 'Create a new message',
+
+
 ];

@@ -45,8 +45,8 @@ class CustomAuthController extends Controller
         ]);
 
         $user = new User;
-        $user->fill($request->all());
-        $user->password = Hash::make($request->password);
+        $user->fill($request->all()); // insert into user (username, password) Values ('m@g.co', 123456)
+        $user->password = Hash::make($request->password); //insert into user (username, password) Values ('m@g.co', alkjhklAJRH;AKR'KHKHKHLKW'LKJJL'KY'K)
         $user->save();
 
         return redirect(route('login'))->withSuccess('Felicitation !');

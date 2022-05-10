@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class BlogPostController extends Controller
 {
@@ -41,11 +42,17 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
-        $newPost = BlogPost::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'user_id' => 1
-        ]);
+        // $newPost = BlogPost::create([
+        //     'title' => $request->title,
+        //     'body' => $request->body,
+        //     'user_id' => 1
+        // ]);
+
+        $newPost = new BlogPost;
+        $newPost->fill($request->all());
+        $newPost->user_id = Auth::user()->id;
+        $newPost->save();
+
 
         return redirect('blog/'.$newPost->id);
     }
@@ -56,9 +63,12 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function show(BlogPost $blogPost)
+
+    //public function show(BlogPost $blogPost) -- Origional Laravel Show (Seelct * FROM MODEL WHERE PK =  GETmethod)
+    public function show($blogPost)
     {
-        return  view ('blog.show', ['post'=>$blogPost]);
+        $blog = BlogPost::selectBlogPost($blogPost);
+        return  view ('blog.show', ['post'=>$blog]);
     }
 
     /**

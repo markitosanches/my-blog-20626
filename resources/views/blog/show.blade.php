@@ -14,6 +14,8 @@
                 <hr>
                 <a href="{{ route('blog.edit', $post->id)}}" class="btn btn-outline-primary">Modifier l'article</a>
                 <hr>
+                <a href="{{ route('blog.pdf', $post->id)}}" class="btn btn-outline-success" target="_blank">PDF</a>
+                <hr>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Supprimer l'article
                 </button>

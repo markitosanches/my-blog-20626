@@ -8,6 +8,8 @@ use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use PDF;
+//use Barryvdh\DomPDF\Facade as PDF;
 
 class BlogPostController extends Controller
 {
@@ -108,6 +110,13 @@ class BlogPostController extends Controller
     {
         $blogPost->delete();
         return redirect(route('blog'));
+    }
+
+    public function showPdf(BlogPost $blogPost){
+
+        $pdf = PDF::loadView('blog.pdf-file', ['post' => $blogPost]);
+        return $pdf->download('blog-post.pdf');
+        //return $pdf->stream('blog-post.pdf');
     }
 
     public function queries(){

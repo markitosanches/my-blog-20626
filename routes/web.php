@@ -28,6 +28,7 @@ Route::get('blog/{blogPost}/edit', [BlogPostController::class, 'edit'])->name('b
 Route::put('blog/{blogPost}/edit', [BlogPostController::class, 'update'])->middleware('auth');
 Route::delete('blog/{blogPost}', [BlogPostController::class, 'destroy'])->middleware('auth');
 Route::get('blog-queries', [BlogPostController::class, 'queries'])->middleware('auth');
+Route::get('blog/{blogPost}/PDF', [BlogPostController::class, 'showPdf'])->name('blog.pdf')->middleware('auth');
 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('custom.login');

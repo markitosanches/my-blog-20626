@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Hash;
 use Auth;
 use Session;
+use Mail;
 
 class CustomAuthController extends Controller
 {
@@ -47,7 +48,15 @@ class CustomAuthController extends Controller
         $user = new User;
         $user->fill($request->all()); // insert into user (username, password) Values ('m@g.co', 123456)
         $user->password = Hash::make($request->password); //insert into user (username, password) Values ('m@g.co', alkjhklAJRH;AKR'KHKHKHLKW'LKJJL'KY'K)
-        $user->save();
+        //$user->save();
+
+        $to_name = $request->name;
+        $to_email = $request->email;
+        $body = "<a href='http://localhost:8000/login'>Cliquez ici pour confirmer votre compte</a>";
+
+        Mail::send('email.mail', $data=['name'=>$to_name, 'body'=>$body], function($message) use ($to_name, $to_email){
+            $message->to($to_email, $to_name)->subject('Courrier de test Laravel');
+        });
 
         return redirect(route('login'))->withSuccess('Felicitation !');
     }
